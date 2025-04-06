@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+body, :root{
+    @apply flex flex-row w-full h-full 
+    justify-center items-center text-blue-900
+    bg-gradient-to-t from-[#919bff]  to-[#133a94]
+}
