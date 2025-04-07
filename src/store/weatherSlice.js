@@ -80,7 +80,9 @@ for (let i = 0; i< 7; i++) {
 const weatherSlice = createSlice({
   name: "weather",
   initialState: {
-    data: null,
+    data: {
+      temperature: [],
+      arrSeven: []},
     isLoading: false,
     error: "",
   },
