@@ -18,11 +18,15 @@ ChartJS.register(
 
 const ChartBlock = () => {
     const {data, isLoading, error} = useSelector(store=>store.weather)
+    console.log(data);
+    let arr = data.temperature || []
+    console.log(arr);
+    
     let chartData = {
-        labels: [],
+        labels: arr?.map(item=>item.time),
         datasets: [{
-            data: [],
-            Filler: true,
+            data: arr.map(item=>item.temp),
+            fill: true,
             backgroundColor: 'rgba(255, 255, 255, 0.3)',
             borderColor: 'rgba(255, 255, 255, 0.3)',
             borderWidth: 2,
@@ -30,8 +34,8 @@ const ChartBlock = () => {
             pointBackgroundColor: 'rgba(255, 255, 255, 1)',
         }]
     }
-    chartData.labels = data?.map(item=>item.time);
-    chartData.datasets[0].data = data?.map(item=>item.temp)
+  
+    
     // chart options
     let axesConfig = {
         grid: {
