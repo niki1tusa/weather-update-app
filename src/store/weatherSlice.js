@@ -25,10 +25,28 @@ for (let i = 0; i< 7; i++) {
     time: dailyTime[i],
     tempMax: temperature_2m_max[i],
     tempMin: temperature_2m_min[i],
+
   });
   
 }
-
+// const getIconTypeDaily = (rain_sum) => {
+//   let iconType = "";
+//   iconType =
+//     cloud_cover > 50
+//       ? IconType.HEAVY_CLOUD
+//       : cloud_cover > 30
+//       ? IconType.MODERATE_CLOUD
+//       : IconType.LIGHT_CLOUD;
+//   iconType =
+//     rain > 7.6
+//       ? IconType.HEAVY_RAIN
+//       : rain > 2.5
+//       ? IconType.MODERATE_RAIN
+//       : rain > 1
+//       ? IconType.LIGHT_RAIN
+//       : iconType;
+//   return iconType;
+// }
 
 
 
