@@ -5,6 +5,8 @@ import { IoNewspaperOutline } from "react-icons/io5";
 import { TbMap2 } from "react-icons/tb";
 import { FaHandshakeSimple } from "react-icons/fa6";
 import { RiLoginBoxLine } from "react-icons/ri";
+import { useNavigate } from 'react-router';
+import { useCallback } from 'react';
 
 const listData = [
   {
@@ -29,13 +31,17 @@ const listData = [
   },
 ]
 const LeftSidebar = () => {
+  const navigate = useNavigate()
+  const navigateFnc = useCallback(path =>{ 
+  path === 'home'? navigate('/'):navigate(`/${path}`)  
+}, [navigate])
   return (
        <div className=' bg-white/50 w-[200px] rounded-lg '>
 <div className='flex justify-center my-5'>
   <IoRainyOutline size={90} />
 </div>
  <div className='ml-5 mt-7'>{listData.map((item, i)=>(
-  <ItemBar key={`${item.title}-${i}`} icon={item.icon} title={item.title}/>
+  <ItemBar key={`${item.title}-${i}`} icon={item.icon} title={item.title} togglePage={()=>navigateFnc(item.title.toLowerCase())}/>
  ))}
   </div>
 <div className='mt-39'>

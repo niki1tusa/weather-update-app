@@ -6,7 +6,7 @@ const OutBlock = () => {
   const arr = data.temperature;
 
   return (
-    <div className="flex justify-start gap-x-5 mt-10">
+    <div className="flex justify-around gap-x-5 mt-10">
       {arr?.map((item) => (
         <div
           key={item.id}
