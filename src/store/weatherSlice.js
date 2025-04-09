@@ -37,6 +37,9 @@ import { IconType } from "../utilities/IconType";
             : iconType;
         return iconType;
       };
+
+
+
 export const getWeather = createAsyncThunk(
   "weather/getWeather",
   async (cityName) => {
@@ -50,6 +53,18 @@ export const getWeather = createAsyncThunk(
       let res = await axios.get(
         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,rain_sum,precipitation_sum,wind_speed_10m_max&hourly=temperature_2m,wind_speed_10m,rain,cloud_cover,visibility,precipitation_probability,apparent_temperature,is_day&current=temperature_2m,is_day,rain,wind_speed_10m,cloud_cover,precipitation&timezone=auto`
       );
+// current forecast
+const {temperature_2m, is_day, rain, wind_speed_10m, cloud_cover, humidity, visibality} = res.data.current
+const currentForecast = []
+currentForecast.push({
+  temperature: temperature_2m,
+  rain: rain,
+  is_day: is_day,
+  wind: wind_speed_10m,
+  cloud: cloud_cover,
+  iconType: getIconType(cloud_cover, rain)
+})
+
       // seven days
 
       const {
@@ -72,19 +87,19 @@ export const getWeather = createAsyncThunk(
 
       // today
 
-      let { temperature_2m, rain, cloud_cover } = res.data.hourly;
+      let hourlyData = res.data.hourly;
       let temperature = [];
 
       for (let i = 6; i <= 18; i += 3) {
         temperature.push({
-          id: `${cityName}-${temperature_2m[i]}-${i}`,
+          id: `${cityName}-${hourlyData.temperature_2m[i]}-${i}`,
           time: `${i}:00`,
-          temp: temperature_2m[i],
-          iconType: getIconType(cloud_cover[i], rain[i]),
+          temp: hourlyData.temperature_2m[i],
+          iconType: getIconType(hourlyData.cloud_cover[i], rain[i]),
         });
       }
 
-      return { temperature, arrSeven };
+      return { temperature, arrSeven, currentForecast };
     } catch (error) {
       throw new Error("Name city is error");
     }

@@ -1,31 +1,30 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
-import Icon from '../Icon';
-import { useLocation } from 'react-router';
+import { useSelector } from 'react-redux'
+import Icon from '../Icon'
+import { FaWind } from "react-icons/fa";
+const RightSidebar = () => {
+  const {data} = useSelector(state=>state.weather)
+  const arrCurr = data?.currentForecast || []
+  const objectCurr = arrCurr.flat() 
+  console.log(objectCurr);
+  
+  return (          
+    <div className='bg-white/50 rounded-lg p-4'>
+{objectCurr.map((item, i)=>(
+  <div key={i}>
+    <Icon iconType={item.iconType}/>
+      <p>Current forecast</p>
+<p>rain{item.rain}</p>
+<p>temperature: {item.temperature}</p>
+<div className='flex items-center gap-1'><FaWind/><p>{item.wind}km/h</p></div>
 
-const SideRIghtBar = () => {
-  const { data, isLoading, error } = useSelector((store) => store.weather);
-  const arr = data.arrSeven;
-  const location = useLocation()
-  return (
-     location.pathname==='/'?( <div className=' bg-white/50  rounded-lg'>
-  <nav className='mt-4'>
-<h2>Forecast on seven days</h2>
-<ul className='flex justify-around'>
-  {
-    arr.map((item, index)=>(
-      <li key={index} className='flex  flex-col border-l'>
-        <h2>{item.time}</h2>
-        <Icon iconType={item.iconType}/>
-        <p>{item.tempMax} / {item.tempMin}</p>
-      
-      </li>
-    ))
-  }
-</ul>
-  </nav>
-      </div>): ''
+  </div>
+
+))
+
+}
+    </div>
   )
 }
 
-export default SideRIghtBar
+export default RightSidebar
