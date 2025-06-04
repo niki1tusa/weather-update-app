@@ -1,17 +1,16 @@
-import React from 'react'
 import { useSelector } from 'react-redux';
 import Icon from '../Icon';
 import { useLocation } from 'react-router';
 import Title from '../Title';
 const BottomSidebar = () => {
-  const { data, isLoading, error } = useSelector((store) => store.weather);
+  const { data } = useSelector((store) => store.weather);
   const arr = data.arrSeven;
   const location = useLocation()
   
   const formatDate = (date) =>{
-     new Intl.DateTimeFormat('ru-Ru',{dateStyle: "full",
+   return   new Intl.DateTimeFormat('ru-Ru',{dateStyle: "full",
       timeStyle: "long",
-    }).format(date)
+    }).format(new Date(date))
   }
   return (
      location.pathname==='/'?( <div className=' '>

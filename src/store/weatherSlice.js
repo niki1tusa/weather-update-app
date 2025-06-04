@@ -54,7 +54,7 @@ export const getWeather = createAsyncThunk(
         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,rain_sum,precipitation_sum,wind_speed_10m_max&hourly=temperature_2m,wind_speed_10m,rain,cloud_cover,visibility,precipitation_probability,apparent_temperature,is_day&current=temperature_2m,is_day,rain,wind_speed_10m,cloud_cover,precipitation&timezone=auto`
       );
 // current forecast
-const {temperature_2m, is_day, rain, wind_speed_10m, cloud_cover, humidity, visibality} = res.data.current
+const {temperature_2m, is_day, rain, wind_speed_10m, cloud_cover} = res.data.current
 const currentForecast = []
 currentForecast.push({
   temperature: temperature_2m,
@@ -101,7 +101,7 @@ currentForecast.push({
 
       return { temperature, arrSeven, currentForecast };
     } catch (error) {
-      throw new Error("Name city is error");
+      throw new Error(`Name city is error ${error.message}`);
     }
   } ////!
 );
